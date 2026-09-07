@@ -1,0 +1,6 @@
+{
+  "name": "AI Study Assistant 📚",
+  "description": "Personal student AI study & life partner powered by Google Gemini, featuring custom student dashboards, interactive question generation, and authentic test papers with step-by-step marking.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

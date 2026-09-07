@@ -1,0 +1,64 @@
+{
+  "entities": {
+    "user": {
+      "title": "User",
+      "description": "Student profile data",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "email": { "type": "string" },
+        "avatar": { "type": "string" },
+        "grade": { "type": "string" },
+        "school": { "type": "string" },
+        "board": { "type": "string" },
+        "aim": { "type": "string" },
+        "stream": { "type": "string" },
+        "targetExam": { "type": "string" },
+        "targetYear": { "type": "string" },
+        "dreamCollege": { "type": "string" },
+        "targetScore": { "type": "string" },
+        "city": { "type": "string" },
+        "bio": { "type": "string" },
+        "preferredLanguage": { "type": "string" },
+        "accentColor": { "type": "string" },
+        "targetDailyMinutes": { "type": "number" },
+        "streak": { "type": "number" },
+        "xp": { "type": "number" },
+        "level": { "type": "number" },
+        "role": { "type": "string" },
+        "joinedAt": { "type": "string" },
+        "lastLoginAt": { "type": "string" }
+      },
+      "required": ["id", "name", "email"]
+    },
+    "smartNote": {
+      "title": "SmartNote",
+      "description": "Student notes and transcribed voice notes",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "userId": { "type": "string" },
+        "title": { "type": "string" },
+        "subject": { "type": "string" },
+        "chapter": { "type": "string" },
+        "content": { "type": "string" },
+        "summary": { "type": "string" },
+        "isFavorite": { "type": "boolean" },
+        "createdAt": { "type": "string" },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["id", "userId", "title"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": { "$ref": "#/entities/user" },
+      "description": "Individual student profile documents"
+    },
+    "/users/{userId}/notes/{noteId}": {
+      "schema": { "$ref": "#/entities/smartNote" },
+      "description": "Individual student notes and audio transcripts"
+    }
+  }
+}
