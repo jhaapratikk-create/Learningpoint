@@ -27,6 +27,7 @@ import {
 import { useStudy } from "../../context/StudyContext";
 import { apiService } from "../../services/api";
 import { MarkdownRenderer } from "../common/MarkdownRenderer";
+import { MathFormula } from "../common/MathFormula";
 
 interface StepItem {
   stepNumber: number;
@@ -472,7 +473,7 @@ export const MathSolver: React.FC = () => {
                     🎯 Verified Final Answer
                   </span>
                   <h3 className="text-base sm:text-xl font-black text-emerald-950 dark:text-emerald-100 font-mono tracking-tight">
-                    {solution.finalAnswer}
+                    <MathFormula expression={solution.finalAnswer} />
                   </h3>
                 </div>
 
@@ -516,7 +517,7 @@ export const MathSolver: React.FC = () => {
                         {solution.governingFormulas.map((f, i) => (
                           <li key={i} className="flex items-start gap-1.5 font-mono text-indigo-600 dark:text-indigo-400 font-semibold">
                             <span>•</span>
-                            <span>{f}</span>
+                            <MathFormula expression={f} />
                           </li>
                         ))}
                       </ul>
@@ -549,7 +550,7 @@ export const MathSolver: React.FC = () => {
 
                       {step.expression && (
                         <div className="p-2.5 rounded-lg bg-white dark:bg-slate-900 border border-slate-250 dark:border-slate-700 text-xs font-mono text-indigo-700 dark:text-indigo-300 overflow-x-auto">
-                          {step.expression}
+                          <MathFormula expression={step.expression} block={false} />
                         </div>
                       )}
 

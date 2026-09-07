@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Plus, X, Bot, Camera, Calculator, Timer, FileSearch, Layers, Sparkles, BookOpen, Trophy, AlarmClock } from "lucide-react";
+import { Plus, X, Bot, Camera, Calculator, Timer, FileSearch, Layers, Sparkles, BookOpen, Trophy, AlarmClock, Network } from "lucide-react";
 import { useStudy } from "../../context/StudyContext";
 import { AppView } from "../../types";
 
@@ -22,6 +22,16 @@ export const FloatingActionMenu: React.FC = () => {
             onClick={() => setIsOpen(false)}
           />
           <div className="absolute bottom-16 right-0 z-50 flex flex-col gap-2 items-end min-w-[220px] animate-in fade-in slide-in-from-bottom-4 duration-200">
+            <button
+              onClick={() => handleAction("mind-map")}
+              className="flex items-center justify-between w-full gap-3 px-3.5 py-2.5 rounded-xl bg-white dark:bg-slate-800 text-slate-800 dark:text-slate-100 shadow-xl border border-cyan-300 dark:border-cyan-700 hover:bg-cyan-50 dark:hover:bg-slate-750 transition-all text-xs font-bold group"
+            >
+              <span className="text-cyan-600 dark:text-cyan-400">Neural Mind Map</span>
+              <div className="w-7 h-7 rounded-lg bg-cyan-100 dark:bg-cyan-950/80 flex items-center justify-center text-cyan-600 dark:text-cyan-400 group-hover:scale-110 transition-transform">
+                <Network className="w-4 h-4" />
+              </div>
+            </button>
+
             <button
               onClick={() => handleAction("smart-notes")}
               className="flex items-center justify-between w-full gap-3 px-3.5 py-2.5 rounded-xl bg-white dark:bg-slate-800 text-slate-800 dark:text-slate-100 shadow-xl border border-purple-300 dark:border-purple-700 hover:bg-purple-50 dark:hover:bg-slate-750 transition-all text-xs font-bold group"

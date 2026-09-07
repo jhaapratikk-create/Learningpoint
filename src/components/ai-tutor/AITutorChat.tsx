@@ -19,6 +19,8 @@ import {
   MessageSquare,
   BookOpen,
   Zap,
+  Network,
+  Calculator,
 } from "lucide-react";
 import { useStudy } from "../../context/StudyContext";
 import { AIChatMode, ChatMessage } from "../../types";
@@ -39,6 +41,7 @@ export const AITutorChat: React.FC = () => {
     subjects,
     addToast,
     triggerConfetti,
+    setCurrentView,
   } = useStudy();
 
   const activeChat =
@@ -519,6 +522,13 @@ export const AITutorChat: React.FC = () => {
                           className="p-1 rounded hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-500 dark:text-slate-300"
                         >
                           <Layers className="w-3.5 h-3.5" />
+                        </button>
+                        <button
+                          onClick={() => setCurrentView("mind-map")}
+                          title="Transform into Neural Mind Map"
+                          className="p-1 rounded hover:bg-cyan-50 dark:hover:bg-cyan-950/60 text-cyan-600 dark:text-cyan-400"
+                        >
+                          <Network className="w-3.5 h-3.5" />
                         </button>
                       </div>
                     )}

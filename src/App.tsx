@@ -22,6 +22,7 @@ import { ExplanationEngine } from "./components/explanation-engine/ExplanationEn
 import { QuestionGenerator } from "./components/question-generator/QuestionGenerator";
 import { MathSolver } from "./components/math-solver/MathSolver";
 import { QuestionScanner } from "./components/question-scanner/QuestionScanner";
+import { NeuralMindMap } from "./components/mind-map/NeuralMindMap";
 import { FlashcardDeck } from "./components/flashcards/FlashcardDeck";
 import { PracticeMistakesView } from "./components/practice/PracticeMistakesView";
 import { QuizList } from "./components/quiz/QuizList";
@@ -105,6 +106,8 @@ const MainAppContent: React.FC = () => {
         return <MathSolver />;
       case "question-scanner":
         return <QuestionScanner />;
+      case "mind-map":
+        return <NeuralMindMap />;
       case "flashcards":
         return <FlashcardDeck />;
       case "practice":

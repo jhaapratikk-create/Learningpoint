@@ -30,6 +30,7 @@ import {
   AlarmClock,
   X,
   LogIn,
+  Network,
 } from "lucide-react";
 import { useStudy } from "../../context/StudyContext";
 import { useAuth } from "../../context/AuthContext";
@@ -92,6 +93,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
     { id: "question-generator", label: "Question Generator", icon: Zap },
     { id: "math-solver", label: "AI Problem Solver", icon: Calculator, badge: "STEM" },
     { id: "question-scanner", label: "Question Scanner", icon: Camera },
+    { id: "mind-map", label: "Neural Mind Map", icon: Network, badge: "Futuristic" },
   ];
 
   const bottomNavItems: {

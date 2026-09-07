@@ -2,6 +2,7 @@ import {StrictMode} from 'react';
 import {createRoot} from 'react-dom/client';
 import App from './App.tsx';
 import './index.css';
+import 'katex/dist/katex.min.css';
 
 // Register PWA Service Worker for offline support and background alarm notifications
 if ('serviceWorker' in navigator && (import.meta.env.PROD || !window.location.hostname.includes('localhost'))) {

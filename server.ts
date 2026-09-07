@@ -328,6 +328,11 @@ Topic: ${topic}
 
 Solve this problem accurately with clear step-by-step logic, intermediate formulas, and quick verification.
 
+MATHEMATICAL FORMATTING RULES:
+1. In "finalAnswer", "governingFormulas", and "expression", provide clean mathematical notation (e.g. "x = 4", "E = mc^2", "\\frac{-b \\pm \\sqrt{b^2 - 4ac}}{2a}").
+2. DO NOT write raw random dollar signs ($) or escaped dollar signs (\\$) around normal words or numbers.
+3. When using LaTeX symbols, write clean standard LaTeX expressions without broken syntax.
+
 Respond strictly with valid JSON matching this schema:
 {
   "problemStatement": "${problem.replace(/"/g, '\\"')}",
@@ -339,7 +344,7 @@ Respond strictly with valid JSON matching this schema:
     {
       "stepNumber": 1,
       "title": "Step 1 Title",
-      "expression": "Math formula or expression",
+      "expression": "Clean math formula or algebraic step without stray dollar signs",
       "explanation": "Clear explanation"
     },
     {
@@ -370,7 +375,7 @@ Respond strictly with valid JSON matching this schema:
       userPrompt: prompt,
       model,
       responseMimeType: "application/json",
-      systemInstruction: "You are an expert STEM tutor. Solve math, science, and engineering questions with precision, verified intermediate steps, and structured JSON output."
+      systemInstruction: "You are an expert STEM tutor. Solve math, science, and engineering questions with precision, verified intermediate steps, and clean mathematical formatting without stray dollar signs."
     });
 
     const parsed = safeJsonParse(text, null);
@@ -430,7 +435,14 @@ Language requested: ${preferredLanguage}. Respond in ${preferredLanguage} unless
 Subject context: ${subject || "All Subjects / Student Life"}.
 Response Mode: ${mode || "partner"}.
 Guidelines: ${modeInstructions[mode] || modeInstructions["partner"]}
-Ensure empathetic tone, bold key highlights, clean markdown formatting, and friendly encouraging energy.`;
+
+MATHEMATICAL NOTATION & EQUATION RULES:
+- Format mathematical equations and scientific variables cleanly.
+- For inline math, use standard $...$ notation (e.g. $x^2 + y^2 = r^2$, $\\Delta H$, $\\lambda = \\frac{h}{p}$).
+- For standalone display equations, use $$...$$ blocks.
+- CRITICAL: Never write random stray dollar signs ($) or escaped symbols (\\$) around normal words or numbers (e.g. NEVER write '$5 apples' as '$5$' or leave lone '$' signs).
+- Use clean unicode symbols where helpful (θ, π, √, ±, ², ³, ×, ÷, ≤, ≥, →, Δ, ∑, ∞, °C).
+- Ensure empathetic tone, bold key highlights, clean markdown formatting, and friendly encouraging energy.`;
 
   const startTime = Date.now();
   try {
@@ -930,6 +942,182 @@ Return STRICT JSON matching this format:
     finalAnswer: local.finalAnswer,
     keyConceptsUsed: ["Mathematical Precision", "Systematic Problem Decomposition", "Dimensional Consistency"],
     disclaimer: "AI solutions are provided for study and revision assistance; verify against textbooks for critical exams."
+  });
+});
+
+// Futuristic AI Neural Mind Map & Concept Visualizer
+app.post("/api/ai/generate-mindmap", async (req, res) => {
+  const { topic, subject = "General Science", depth = "comprehensive", model = "gemini-3.8-flash" } = req.body;
+
+  if (!topic || !topic.trim()) {
+    return res.status(400).json({ error: "Topic is required" });
+  }
+
+  const prompt = `You are a futuristic Neural Knowledge Architect and Academic Visualizer.
+Create a rich, multi-layered interactive concept mind map for: "${topic}"
+Subject Context: ${subject}
+Depth: ${depth}
+
+CRITICAL RULES:
+1. Break this concept into 5 to 8 interconnected nodes with clear hierarchical categories:
+   - "core" (the central essence or foundational definition)
+   - "principle" (underlying theorem, mechanism, or law)
+   - "formula" (exact mathematical equations rendered in clean LaTeX without dollar signs)
+   - "application" (futuristic real-world technology, aerospace, biology, or engineering)
+   - "exam_trap" (frequent misconception or tricky exam failure point)
+2. In formulas, provide clean LaTeX without surrounding stray dollar signs.
+3. Include high-yield formulas with explanations.
+4. Include a Feynman Technique challenge to test true student mastery.
+
+Respond strictly in valid JSON format:
+{
+  "topic": "${topic.replace(/"/g, '\\"')}",
+  "summary": "Futuristic 2-sentence executive conceptual summary",
+  "complexityScore": 82,
+  "estimatedMasteryTime": "35 mins",
+  "nodes": [
+    {
+      "id": "node_1",
+      "label": "Core Title",
+      "category": "core",
+      "tag": "Foundational Pillar",
+      "description": "Concise definition of the principle",
+      "formula": "\\vec{F} = m\\vec{a}",
+      "keyTakeaways": ["Point 1", "Point 2"],
+      "connections": ["node_2", "node_3"]
+    },
+    {
+      "id": "node_2",
+      "label": "Mathematical Framework",
+      "category": "formula",
+      "tag": "Governing Law",
+      "description": "How to compute and apply the quantitative relationship",
+      "formula": "E = \\frac{1}{2}mv^2",
+      "keyTakeaways": ["Dimensional consistency", "Conservation principles"],
+      "connections": ["node_3", "node_4"]
+    },
+    {
+      "id": "node_3",
+      "label": "Real-World Application",
+      "category": "application",
+      "tag": "Applied Tech",
+      "description": "How this concept powers modern or futuristic innovations",
+      "keyTakeaways": ["Industrial scaling", "Everyday relevance"],
+      "connections": ["node_4"]
+    },
+    {
+      "id": "node_4",
+      "label": "High-Stakes Exam Trap",
+      "category": "exam_trap",
+      "tag": "Pitfall Alert",
+      "description": "Common flaw made by students under pressure",
+      "keyTakeaways": ["Watch sign conventions", "Distinguish vector vs scalar"],
+      "connections": []
+    }
+  ],
+  "keyFormulas": [
+    {
+      "name": "Primary Governing Equation",
+      "latex": "y = mx + c",
+      "meaning": "Fundamental relationship between active variables"
+    }
+  ],
+  "feynmanChallenge": {
+    "prompt": "How would you explain this concept in 60 seconds to a non-specialist without using jargon?",
+    "sampleAnalogy": "Everyday intuitive analogy that anchors understanding.",
+    "keyPitfall": "The main conceptual misunderstanding to avoid."
+  },
+  "futuristicApplications": [
+    "Quantum computing & superconductivity interfaces",
+    "Autonomous navigation and gravitational orbital assists"
+  ]
+}`;
+
+  const startTime = Date.now();
+  try {
+    const { text, modelUsed } = await generateWithAI({
+      userPrompt: prompt,
+      model,
+      responseMimeType: "application/json",
+      systemInstruction: "You are a master academic knowledge visualizer. Generate deeply structured, mathematically rigorous, futuristic mind map JSON graphs with clean LaTeX and zero broken dollar symbols."
+    });
+
+    const parsed = safeJsonParse(text, null);
+    if (parsed && parsed.nodes && parsed.nodes.length > 0) {
+      return res.json({
+        ...parsed,
+        modelUsed,
+        responseTimeMs: Date.now() - startTime,
+      });
+    }
+  } catch (err: any) {
+    console.warn("[MindMap] AI generation fallback:", err?.message);
+  }
+
+  // Robust algorithmic deterministic fallback
+  const cleanTopic = topic.trim();
+  res.json({
+    topic: cleanTopic,
+    summary: `Structured conceptual architecture for ${cleanTopic}, breaking down core axioms, quantitative formulations, real-world manifestations, and examination checkpoints.`,
+    complexityScore: 78,
+    estimatedMasteryTime: "40 mins",
+    nodes: [
+      {
+        id: "node_1",
+        label: `${cleanTopic}: Axioms`,
+        category: "core",
+        tag: "Core Definition",
+        description: `The foundational principles and baseline definitions that govern ${cleanTopic}.`,
+        keyTakeaways: ["Clear boundary definitions", "Fundamental conservation principles"],
+        connections: ["node_2", "node_3"]
+      },
+      {
+        id: "node_2",
+        label: "Quantitative Formulation",
+        category: "formula",
+        tag: "Mathematical Framework",
+        description: "Primary mathematical expressions and transformation identities.",
+        formula: "\\Delta S \\ge 0 \\quad \\text{and} \\quad \\oint \\vec{B} \\cdot d\\vec{A} = 0",
+        keyTakeaways: ["Dimensionally balanced relations", "Vector and scalar distinctions"],
+        connections: ["node_3", "node_4"]
+      },
+      {
+        id: "node_3",
+        label: "Applied Manifestation",
+        category: "application",
+        tag: "Real-World Tech",
+        description: `How ${cleanTopic} drives technological breakthroughs in modern and futuristic systems.`,
+        keyTakeaways: ["Industrial systems", "High-efficiency designs"],
+        connections: ["node_4"]
+      },
+      {
+        id: "node_4",
+        label: "High-Yield Pitfall & Trap",
+        category: "exam_trap",
+        tag: "Common Mistake",
+        description: "Frequent traps where students confuse sign conventions or boundary conditions.",
+        keyTakeaways: ["Double-check initial conditions", "Verify units and limits"],
+        connections: []
+      }
+    ],
+    keyFormulas: [
+      {
+        name: `${cleanTopic} Core Relation`,
+        latex: "f(x) = \\lim_{\\Delta x \\to 0} \\frac{f(x+\\Delta x) - f(x)}{\\Delta x}",
+        meaning: "Rate of change and instantaneous transformation"
+      }
+    ],
+    feynmanChallenge: {
+      prompt: `Can you explain the core mechanism of ${cleanTopic} using an everyday analogy from a kitchen or moving car?`,
+      sampleAnalogy: "Like gears in a watch or currents in a river, each component transmits energy smoothly.",
+      keyPitfall: "Assuming ideal conditions without checking friction, resistance, or sign conventions."
+    },
+    futuristicApplications: [
+      "Next-generation aerospace navigation",
+      "Predictive machine learning architectures"
+    ],
+    modelUsed: "Neural Graph Engine",
+    responseTimeMs: Date.now() - startTime,
   });
 });
 

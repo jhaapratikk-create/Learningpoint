@@ -17,6 +17,7 @@ export type AppView =
   | "question-generator"
   | "math-solver"
   | "question-scanner"
+  | "mind-map"
   | "flashcards"
   | "practice"
   | "mistake-notebook"

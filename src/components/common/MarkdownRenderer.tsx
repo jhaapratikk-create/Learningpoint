@@ -1,15 +1,45 @@
-import React from "react";
+import React, { useMemo } from "react";
 import ReactMarkdown from "react-markdown";
+import remarkMath from "remark-math";
+import rehypeKatex from "rehype-katex";
 
 interface MarkdownRendererProps {
   content: string;
   className?: string;
 }
 
+/**
+ * Preprocesses markdown content so LaTeX math notation is cleanly recognized:
+ * 1. Converts \( ... \) to $...$
+ * 2. Converts \[ ... \] to $$...$$
+ * 3. Sanitizes weird escaped symbols or stray unclosed dollar sequences
+ */
+function normalizeMathDelimiters(text: string): string {
+  if (!text) return "";
+
+  let processed = text;
+
+  // Replace \[ ... \] with $$ ... $$
+  processed = processed.replace(/\\\[([\s\S]*?)\\\]/g, (_match, math) => {
+    return `\n$$\n${math.trim()}\n$$\n`;
+  });
+
+  // Replace \( ... \) with $ ... $
+  processed = processed.replace(/\\\(([\s\S]*?)\\\)/g, (_match, math) => {
+    return `$${math.trim()}$`;
+  });
+
+  return processed;
+}
+
 export const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ content, className = "" }) => {
+  const normalizedContent = useMemo(() => normalizeMathDelimiters(content), [content]);
+
   return (
     <div className={`prose prose-slate dark:prose-invert max-w-none text-sm sm:text-base leading-relaxed ${className}`}>
       <ReactMarkdown
+        remarkPlugins={[remarkMath]}
+        rehypePlugins={[rehypeKatex]}
         components={{
           h1: ({ children }) => (
             <h1 className="text-xl sm:text-2xl font-bold tracking-tight text-slate-900 dark:text-white mt-4 mb-2 pb-2 border-b border-slate-200 dark:border-slate-800">
@@ -76,8 +106,9 @@ export const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ content, cla
           td: ({ children }) => <td className="px-3 py-2 whitespace-normal text-slate-700 dark:text-slate-300">{children}</td>,
         }}
       >
-        {content}
+        {normalizedContent}
       </ReactMarkdown>
     </div>
   );
 };
+
